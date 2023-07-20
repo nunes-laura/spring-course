@@ -1,5 +1,6 @@
 package application.demo.controllers;
 
+import application.demo.dtos.ClientDTO;
 import application.demo.models.Clients;
 import application.demo.services.ClientsService;
 import jakarta.validation.Valid;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/clients")
@@ -19,23 +21,23 @@ public class ClientsController {
     private ClientsService service;
 
     @GetMapping
-    public ResponseEntity<List<Clients>> findAll(){
-        return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
+    public ResponseEntity<List<ClientDTO>> findAll(){
+        return ResponseEntity.status(HttpStatus.OK).body( service.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Clients> findById(@PathVariable UUID id){
+    public ResponseEntity<ClientDTO> findById(@PathVariable UUID id){
         return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
     }
 
     @PostMapping("/save")
-    public ResponseEntity<Clients> create(@Valid @RequestBody Clients c){
+    public ResponseEntity<ClientDTO> create(@Valid @RequestBody ClientDTO c){
         return ResponseEntity.status(HttpStatus.CREATED).body(service.create(c));
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Clients> update (@PathVariable UUID id,@Valid @RequestBody Clients c){
-        return ResponseEntity.status(HttpStatus.OK).body(service.update(id, c));
+    public ResponseEntity<ClientDTO> update (@PathVariable UUID id,@Valid @RequestBody Clients c){
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(service.update(id, c));
 
     }
 
