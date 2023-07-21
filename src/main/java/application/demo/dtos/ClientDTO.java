@@ -1,5 +1,6 @@
 package application.demo.dtos;
 
+
 import jakarta.validation.constraints.NotBlank;
 
 public class ClientDTO {
