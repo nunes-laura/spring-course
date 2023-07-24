@@ -11,11 +11,21 @@ public class WebConfiguration implements WebMvcConfigurer {
     @Override
     public void configureContentNegotiation(ContentNegotiationConfigurer configurer){
 
-        //QUERY PARAM: http://localhost:8080/clients?mediaType=xml
+        /* QUERY PARAM: http://localhost:8080/clients?mediaType=xml
 
         configurer.favorParameter(true)
                 .parameterName("mediaType")
                 .ignoreAcceptHeader(true)
+                .useRegisteredExtensionsOnly(false)
+                .defaultContentType(MediaType.APPLICATION_JSON)
+                .mediaType("json", MediaType.APPLICATION_JSON)
+                .mediaType("xml", MediaType.APPLICATION_XML);   */
+
+
+        //HEADER PARAM http://localhost:8080/clients
+
+        configurer.favorParameter(false)
+                .ignoreAcceptHeader(false)
                 .useRegisteredExtensionsOnly(false)
                 .defaultContentType(MediaType.APPLICATION_JSON)
                 .mediaType("json", MediaType.APPLICATION_JSON)
