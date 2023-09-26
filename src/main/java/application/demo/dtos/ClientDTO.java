@@ -2,8 +2,9 @@ package application.demo.dtos;
 
 
 import jakarta.validation.constraints.NotBlank;
+import org.springframework.hateoas.RepresentationModel;
 
-public class ClientDTO {
+public class ClientDTO extends RepresentationModel<ClientDTO> {
 
     @NotBlank
     private String firstName;

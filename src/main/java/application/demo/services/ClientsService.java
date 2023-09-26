@@ -1,5 +1,6 @@
 package application.demo.services;
 
+import application.demo.controllers.ClientsController;
 import application.demo.dtos.ClientDTO;
 import application.demo.exceptions.BusinessException;
 import application.demo.models.Clients;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import java.util.List;
 import java.util.UUID;
@@ -33,7 +36,10 @@ public class ClientsService {
 
     public ClientDTO findById (@PathVariable UUID id){
     Clients client = repository.findById(id).get();
-    return mapper.map(client, ClientDTO.class); }
+    ClientDTO response =  mapper.map(client, ClientDTO.class);
+    response.add(linkTo(methodOn(ClientsController.class).findById(id)).withSelfRel());
+        return response;
+    }
 
 
     public ClientDTO create (@Valid @RequestBody ClientDTO c){
