@@ -1,11 +1,17 @@
 package application.demo.dtos;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.hateoas.RepresentationModel;
 
+import java.util.UUID;
+
 public class ClientDTO extends RepresentationModel<ClientDTO> {
 
+    @JsonIgnore
+    @NotBlank
+    private UUID id;
     @NotBlank
     private String firstName;
     @NotBlank
@@ -17,13 +23,19 @@ public class ClientDTO extends RepresentationModel<ClientDTO> {
 
     public ClientDTO(){}
 
-    public ClientDTO(String firstName, String lastName, String address, String gender) {
+    public ClientDTO(UUID id, String firstName, String lastName, String address, String gender) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.gender = gender;
     }
 
+    public UUID getId (){return id;}
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
     public String getFirstName() {
         return firstName;
     }

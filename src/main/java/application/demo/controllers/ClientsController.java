@@ -22,22 +22,22 @@ public class ClientsController {
 
     @GetMapping(produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
 
-    public ResponseEntity<List<ClientDTO>> findAll(){
-        return ResponseEntity.status(HttpStatus.OK).body( service.findAll());
+    public ResponseEntity<List<ClientDTO>> findAll() {
+        return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
     }
 
     @GetMapping(value = "/{id}",
-            produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
+            produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
 
-    public ResponseEntity<ClientDTO> findById(@PathVariable UUID id){
+    public ResponseEntity<ClientDTO> findById(@PathVariable UUID id) {
         return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
     }
 
     @PostMapping(value = "/save",
-            produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML },
+            produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML},
             consumes = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
 
-    public ResponseEntity<ClientDTO> create(@Valid @RequestBody ClientDTO c){
+    public ResponseEntity<ClientDTO> create(@Valid @RequestBody ClientDTO c) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.create(c));
     }
 
@@ -45,16 +45,18 @@ public class ClientsController {
             produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML},
             consumes = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
 
-    public ResponseEntity<ClientDTO> update (@PathVariable UUID id,@Valid @RequestBody Clients c){
+    public ResponseEntity<ClientDTO> update(@PathVariable UUID id, @Valid @RequestBody Clients c) {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(service.update(id, c));
 
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Object> delete(@PathVariable UUID id){
-            service.delete(id);
+    public ResponseEntity<Object> delete(@PathVariable UUID id) {
+        service.delete(id);
 
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 
     }
+
+
 }
