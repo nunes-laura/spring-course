@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -52,7 +51,7 @@ public class ClientsService {
     public ClientDTO update(@PathVariable UUID id, @Valid @RequestBody Clients c) {
         repository.findById(id).orElseThrow(() -> new BusinessException("Content not found!"));
         c.setId(id);
-        var clientUpdated = repository.save(c);
+        repository.save(c);
         var result = mapper.map(c, ClientDTO.class);
         result.add(linkTo(methodOn(ClientsController.class).findById(c.getId())).withSelfRel());
         return result;
@@ -65,5 +64,3 @@ public class ClientsService {
 
 
     }
-
-
